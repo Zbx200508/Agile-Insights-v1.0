@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ project_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .box {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+        h1 {
+            margin-bottom: 8px;
+        }
+        .muted {
+            color: #666;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #f3f3f3;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .tip {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #fafafa;
+            border-left: 4px solid #999;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ project_name }}</h1>
+    <p class="muted">{{ subtitle }}</p>
+
+    <div class="box">
+        <h2>当前版本目标</h2>
+        <div class="tag">PDF 上传</div>
+        <div class="tag">一页摘要</div>
+        <div class="tag">三级逻辑大纲</div>
+        <div class="tag">基于原文问答</div>
+        <div class="tag">引用片段返回</div>
+    </div>
+
+    <div class="box">
+        <h2>当前开发进度</h2>
+        <p>FastAPI 骨架已启动，首页已可访问。</p>
+        <p>下一步将接入 PDF 上传与解析链路。</p>
+    </div>
+
+    <div class="tip">
+        <strong>检查点：</strong>
+        浏览器访问 <code>http://127.0.0.1:8000</code> 应能看到本页面；
+        访问 <code>http://127.0.0.1:8000/health</code> 应返回 JSON。
+    </div>
+</body>
+</html>
