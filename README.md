@@ -88,3 +88,17 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
 API_KEY=
 API_BASE=
 MODEL_NAME=
+
+## 在线体验
+
+Demo 地址：
+https://agile-insights-v1-0.onrender.com/
+
+当前已验证能力：
+- 首页访问
+- /health 健康检查
+- PDF 上传
+- 一页摘要
+- 三级逻辑大纲
+- 基于原文问答
+- 引用片段返回
