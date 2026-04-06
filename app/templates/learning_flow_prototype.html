@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>学习流原型页</title>
+  <link rel="icon" href="/static/favicon.jpg" type="image/jpeg" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", sans-serif;
+      background: #f6f7fb;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .header {
+      margin-bottom: 24px;
+    }
+
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #6b7280;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+      margin-bottom: 12px;
+    }
+
+    .back-home-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      color: #374151;
+      font-size: 14px;
+      padding: 8px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      background: #ffffff;
+    }
+
+.back-home-link:hover {
+  color: #111827;
+  background: #f9fafb;
+}
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      line-height: 1.3;
+      color: #111827;
+    }
+
+    .header p {
+      margin: 0;
+      color: #6b7280;
+      line-height: 1.7;
+      max-width: 860px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 24px;
+      color: #111827;
+    }
+
+    .section-desc {
+      margin: 0;
+      color: #6b7280;
+      line-height: 1.7;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .step-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      background: #e5e7eb;
+      color: #6b7280;
+      flex-shrink: 0;
+    }
+
+    .step-item.active .step-dot {
+      background: #111827;
+      color: #ffffff;
+    }
+
+    .step-label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .step-item.active .step-label {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .step-panel {
+      display: none;
+    }
+
+    .step-panel.active {
+      display: block;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .summary-item {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 14px 16px;
+    }
+
+    .summary-label {
+      display: block;
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .summary-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .footer-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-link {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #111827;
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-link {
+      background: transparent;
+      color: #2563eb;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .chapter-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .chapter-title {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #111827;
+    }
+
+    .chapter-summary {
+      margin: 0;
+      color: #6b7280;
+      line-height: 1.7;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #4b5563;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .control-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .control-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .control-label {
+      display: block;
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #111827;
+    }
+
+    .segmented {
+      display: inline-flex;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .segmented button {
+      border: none;
+      border-right: 1px solid #e5e7eb;
+      background: #ffffff;
+      color: #4b5563;
+      padding: 8px 12px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .segmented button:last-child {
+      border-right: none;
+    }
+
+    .segmented button.active {
+      background: #111827;
+      color: #ffffff;
+    }
+
+    .topic-list {
+      display: none;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed #d1d5db;
+    }
+
+    .topic-list.open {
+      display: block;
+    }
+
+    .topic-item {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .topic-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .topic-title {
+      margin: 0 0 6px;
+      font-size: 16px;
+      color: #111827;
+    }
+
+    .topic-summary {
+      margin: 0;
+      color: #6b7280;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .mode-card {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 18px;
+      background: #ffffff;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .mode-card.active {
+      border-color: #111827;
+      background: #111827;
+      color: #ffffff;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    }
+
+    .mode-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .mode-card p {
+      margin: 0;
+      line-height: 1.7;
+      color: inherit;
+      opacity: 0.9;
+    }
+
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .time-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    .time-box label {
+      display: block;
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .time-box input {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .quick-option {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 16px;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .quick-option.active {
+      background: #111827;
+      color: #ffffff;
+      border-color: #111827;
+    }
+
+    .result-block {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .result-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .task-list,
+    .takeaway-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: #374151;
+      line-height: 1.8;
+    }
+
+    .muted-box {
+      margin-top: 16px;
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .muted-box.warning {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+    }
+
+    .muted-box.success {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    @media (max-width: 900px) {
+      .steps,
+      .summary-grid,
+      .control-grid,
+      .mode-grid,
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .time-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .footer-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <div class="header-tag">敏捷洞察 1.1 · 学习流原型</div>
+        <a class="back-home-link" href="{{ back_link }}">← 返回文档工作台</a>
+      </div>
+
+      <h1>学习资料 → 学习地图 → 两种学习模式</h1>
+      <p>
+        这是项目内隔离原型，用于先验证新产品流程是否成立。当前先使用 mock 数据，
+        不接真实后端逻辑。
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="steps">
+        <div class="step-item active" data-step-indicator="1">
+          <div class="step-dot">1</div>
+          <div class="step-label">确认学习地图</div>
+        </div>
+        <div class="step-item" data-step-indicator="2">
+          <div class="step-dot">2</div>
+          <div class="step-label">选择模式与时间</div>
+        </div>
+        <div class="step-item" data-step-indicator="3">
+          <div class="step-dot">3</div>
+          <div class="step-label">查看学习方案</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-panel active" id="step-1">
+  {% if learning_map %}
+    <div class="card">
+      <h2 class="section-title">{{ learning_map.document.document_title }}</h2>
+      <p class="section-desc">
+        {{ learning_map.document.document_summary }}
+      </p>
+      <p class="section-desc" style="margin-top: 8px;">
+        当前正在读取真实学习地图：
+        <strong>{{ learning_map_filename }}</strong>
+      </p>
+
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="summary-label">章节数</span>
+          <span class="summary-value" id="chapterCount">{{ summary_stats.chapter_count }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">已纳入内容</span>
+          <span class="summary-value" id="selectedCount">{{ summary_stats.selected_count }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">预计学习时长</span>
+          <span class="summary-value" id="selectedMinutes">约 {{ summary_stats.selected_minutes }} 分钟</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">高优先级内容</span>
+          <span class="summary-value" id="highPriorityCount">{{ summary_stats.high_priority_count }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">确认本次学习范围</h2>
+      <p class="section-desc">
+        你只需要快速告诉系统：学不学、会不会、重不重要。默认以章节层为主，必要时可以展开到主题层微调。
+      </p>
+
+      {% for chapter in learning_map.chapters %}
+        <div class="chapter-card" data-minutes="{{ chapter.estimated_minutes }}">
+          <h3 class="chapter-title">{{ chapter.title }}</h3>
+          <p class="chapter-summary">{{ chapter.summary }}</p>
+
+          <div class="chip-row">
+            <span class="chip">约 {{ chapter.estimated_minutes }} 分钟</span>
+            <span class="chip">难度：{{ chapter.difficulty_label }}</span>
+            <span class="chip">{{ chapter.topic_unit_count }} 个主题</span>
+          </div>
+
+          <div class="control-grid">
+            <div class="control-box">
+              <span class="control-label">纳入本次学习</span>
+              <label class="toggle-label">
+                <input type="checkbox" class="chapter-select" {% if chapter.selected %}checked{% endif %} />
+                学习这一章
+              </label>
+            </div>
+
+            <div class="control-box">
+              <span class="control-label">已学程度</span>
+              <div class="segmented mastery-group">
+                <button {% if chapter.mastery_label == "已掌握" %}class="active"{% endif %}>已掌握</button>
+                <button {% if chapter.mastery_label == "了解一些" %}class="active"{% endif %}>了解一些</button>
+                <button {% if chapter.mastery_label == "几乎不会" %}class="active"{% endif %}>几乎不会</button>
+              </div>
+            </div>
+
+            <div class="control-box">
+              <span class="control-label">优先级</span>
+              <div class="segmented priority-group">
+                <button {% if chapter.priority_label == "低" %}class="active"{% endif %}>低</button>
+                <button {% if chapter.priority_label == "中" %}class="active"{% endif %}>中</button>
+                <button {% if chapter.priority_label == "高" %}class="active"{% endif %}>高</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-link expand-btn">展开主题</button>
+
+          <div class="topic-list">
+            {% for unit in chapter.topic_units %}
+              <div class="topic-item">
+                <h4 class="topic-title">{{ unit.title }}</h4>
+                <p class="topic-summary">{{ unit.summary }}</p>
+
+                <div class="chip-row">
+                  <span class="chip">约 {{ unit.estimated_minutes }} 分钟</span>
+                  <span class="chip">难度：{{ unit.difficulty_label }}</span>
+                </div>
+
+                <div class="control-grid">
+                  <div class="control-box">
+                    <span class="control-label">是否学习</span>
+                    <label class="toggle-label">
+                      <input type="checkbox" class="topic-select" {% if unit.selected %}checked{% endif %} />
+                      纳入本次学习
+                    </label>
+                  </div>
+
+                  <div class="control-box">
+                    <span class="control-label">已学程度</span>
+                    <div class="segmented mastery-group">
+                      <button {% if unit.mastery_label == "已掌握" %}class="active"{% endif %}>已掌握</button>
+                      <button {% if unit.mastery_label == "了解一些" %}class="active"{% endif %}>了解一些</button>
+                      <button {% if unit.mastery_label == "几乎不会" %}class="active"{% endif %}>几乎不会</button>
+                    </div>
+                  </div>
+
+                  <div class="control-box">
+                    <span class="control-label">优先级</span>
+                    <div class="segmented priority-group">
+                      <button {% if unit.priority_label == "低" %}class="active"{% endif %}>低</button>
+                      <button {% if unit.priority_label == "中" %}class="active"{% endif %}>中</button>
+                      <button {% if unit.priority_label == "高" %}class="active"{% endif %}>高</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+
+      <div class="footer-actions">
+        <div></div>
+        <button class="btn-primary" id="goStep2">下一步：选择学习模式</button>
+      </div>
+    </div>
+  {% else %}
+    <div class="card">
+      <h2 class="section-title">还没有可用的学习地图</h2>
+      <p class="section-desc">
+        当前还没有读取到 learning_map.json。请先回到首页上传 PDF，成功后再访问这个原型页。
+      </p>
+    </div>
+  {% endif %}
+</div>
+
+    <div class="step-panel" id="step-2">
+      <div class="card">
+        <h2 class="section-title">选择本次学习方式</h2>
+        <p class="section-desc">
+          你已选中一批学习内容，接下来请选择这次更适合你的学习方式。
+        </p>
+
+        <div class="mode-grid">
+          <div class="mode-card active" id="mode-system" data-mode="system">
+            <h3>系统学习</h3>
+            <p>适合想按节奏逐步学完，并获得 7 天学习安排的人。</p>
+          </div>
+
+          <div class="mode-card" id="mode-quick" data-mode="quick">
+            <h3>速通理解</h3>
+            <p>适合时间有限，想先快速抓住最核心内容的人。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="system-setting-card">
+        <h2 class="section-title">设置未来 7 天可投入时间</h2>
+        <p class="section-desc">
+          我们会根据你这周的可投入时间，生成 7 天学习计划。
+        </p>
+
+        <div class="time-grid">
+          <div class="time-box">
+            <label>周一</label>
+            <input type="number" min="0" value="30" data-day="周一" />
+          </div>
+          <div class="time-box">
+            <label>周二</label>
+            <input type="number" min="0" value="40" data-day="周二" />
+          </div>
+          <div class="time-box">
+            <label>周三</label>
+            <input type="number" min="0" value="45" data-day="周三" />
+          </div>
+          <div class="time-box">
+            <label>周四</label>
+            <input type="number" min="0" value="30" data-day="周四" />
+          </div>
+          <div class="time-box">
+            <label>周五</label>
+            <input type="number" min="0" value="20" data-day="周五" />
+          </div>
+          <div class="time-box">
+            <label>周六</label>
+            <input type="number" min="0" value="60" data-day="周六" />
+          </div>
+          <div class="time-box">
+            <label>周日</label>
+            <input type="number" min="0" value="60" data-day="周日" />
+          </div>
+        </div>
+
+        <div class="muted-box warning">
+          当前已选内容约 150 分钟。系统会优先安排高优先级且未掌握内容，并在后半周插入轻复习任务。
+        </div>
+      </div>
+
+      <div class="card" id="quick-setting-card" style="display: none;">
+        <h2 class="section-title">选择这次愿意投入的时长</h2>
+        <p class="section-desc">
+          我们会优先保留最关键内容，帮你生成最短理解路径。
+        </p>
+
+        <div class="quick-grid">
+          <div class="quick-option" data-time="15">
+            <strong>15 分钟</strong>
+            <div style="margin-top: 6px; font-size: 14px;">快速抓重点</div>
+          </div>
+
+          <div class="quick-option active" data-time="30">
+            <strong>30 分钟</strong>
+            <div style="margin-top: 6px; font-size: 14px;">标准速通</div>
+          </div>
+
+          <div class="quick-option" data-time="60">
+            <strong>60 分钟</strong>
+            <div style="margin-top: 6px; font-size: 14px;">稍深入理解</div>
+          </div>
+        </div>
+
+        <div class="muted-box success">
+          速通模式会优先保留高优先级、低掌握度、最能建立整体认知框架的内容。
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <button class="btn-secondary" id="backToStep1">返回修改学习范围</button>
+        <button class="btn-primary" id="goStep4">生成学习方案</button>
+      </div>
+    </div>
+
+    <div class="step-panel" id="step-4-system">
+      <div class="card">
+        <h2 class="section-title">系统学习方案预览</h2>
+        <p class="section-desc">正在根据当前学习范围与 7 天时间分配生成方案。</p>
+        <div id="systemPlanContent"></div>
+
+        <div class="footer-actions">
+          <button class="btn-secondary" id="backToStep2FromSystem">返回修改模式与时间</button>
+          <button class="btn-secondary" id="backToStep1FromSystem">返回修改学习范围</button>
+          <button class="btn-primary" id="applySystemPlanBtn">确定采用此方案</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-panel" id="step-4-quick">
+      <div class="card">
+        <h2 class="section-title">速通理解方案预览</h2>
+        <p class="section-desc">正在根据当前学习范围与目标投入时间生成最短理解路径。</p>
+        <div id="quickPlanContent"></div>
+
+        <div class="footer-actions">
+          <button class="btn-secondary" id="backToStep2FromQuick">返回修改模式与时间</button>
+          <button class="btn-secondary" id="backToStep1FromQuick">返回修改学习范围</button>
+          <button class="btn-primary" id="applyQuickPlanBtn">确定采用此方案</button>
+        </div>
+      </div>
+    </div>
+      <script>
+    const step1 = document.getElementById("step-1");
+    const step2 = document.getElementById("step-2");
+    const step4System = document.getElementById("step-4-system");
+    const step4Quick = document.getElementById("step-4-quick");
+
+    const goStep2 = document.getElementById("goStep2");
+    const backToStep1 = document.getElementById("backToStep1");
+    const goStep4 = document.getElementById("goStep4");
+
+    const backToStep2FromSystem = document.getElementById("backToStep2FromSystem");
+    const backToStep1FromSystem = document.getElementById("backToStep1FromSystem");
+    const backToStep2FromQuick = document.getElementById("backToStep2FromQuick");
+    const backToStep1FromQuick = document.getElementById("backToStep1FromQuick");
+
+    const systemPlanContent = document.getElementById("systemPlanContent");
+    const quickPlanContent = document.getElementById("quickPlanContent");
+
+    const modeSystem = document.getElementById("mode-system");
+    const modeQuick = document.getElementById("mode-quick");
+    const systemSettingCard = document.getElementById("system-setting-card");
+    const quickSettingCard = document.getElementById("quick-setting-card");
+    const applySystemPlanBtn = document.getElementById("applySystemPlanBtn");
+    const applyQuickPlanBtn = document.getElementById("applyQuickPlanBtn");
+
+    const chapterSelects = document.querySelectorAll(".chapter-select");
+    const chapterCards = document.querySelectorAll(".chapter-card");
+    const expandBtns = document.querySelectorAll(".expand-btn");
+    const quickOptions = document.querySelectorAll(".quick-option");
+    const segmentedGroups = document.querySelectorAll(".segmented");
+
+    let currentMode = "system";
+
+    const currentParsedName = "{{ parsed_name }}";
+    
+    function collectWeekMinutes() {
+      const result = {};
+      const inputs = document.querySelectorAll('#system-setting-card input[data-day]');
+
+      inputs.forEach((input) => {
+        const day = input.getAttribute("data-day");
+        const value = parseInt(input.value || "0", 10);
+        result[day] = Number.isNaN(value) ? 0 : value;
+      });
+
+      return result;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderSystemPlan(plan) {
+      if (!plan) {
+        return '<div class="plan-subcard"><p class="muted">暂未生成系统学习方案。</p></div>';
+      }
+
+      const summary = plan.plan_summary || {};
+      const detail = plan.plan_detail || {};
+
+      const highlights = (summary.highlights || [])
+        .map(item => `<span class="chip">${escapeHtml(item)}</span>`)
+        .join("");
+
+      const focuses = (detail.focuses || [])
+        .map(item => `<li>${escapeHtml(item)}</li>`)
+        .join("");
+
+      const days = (detail.days || [])
+        .map(day => {
+          const tasks = (day.tasks || [])
+            .map(task => `<li>${escapeHtml(task)}</li>`)
+            .join("");
+
+          return `
+            <div class="result-block">
+              <h3 class="chapter-title">${escapeHtml(day.day)}｜${escapeHtml(day.minutes)} 分钟</h3>
+              <ul class="task-list">${tasks}</ul>
+            </div>
+          `;
+        })
+        .join("");
+
+      const reviewNote = detail.review_note
+        ? `<div class="result-block"><h3 class="chapter-title">复习安排</h3><p class="chapter-summary">${escapeHtml(detail.review_note)}</p></div>`
+        : "";
+
+      return `
+        <div class="card" style="padding: 0; border: none; background: transparent;">
+          <h2 class="section-title">${escapeHtml(summary.title || "本周学习计划")}</h2>
+          <p class="section-desc">${escapeHtml(summary.subtitle || "")}</p>
+
+          <div class="result-meta">${highlights}</div>
+
+          <div class="result-block">
+            <h3 class="chapter-title">本周重点</h3>
+            <ul class="takeaway-list">${focuses}</ul>
+          </div>
+
+          ${days}
+          ${reviewNote}
+        </div>
+      `;
+    }
+
+    function previewSystemLearningPlan() {
+      const payload = {
+        parsed_name: currentParsedName,
+        week_minutes: collectWeekMinutes()
+      };
+
+      return fetch("/prototype/preview-system-plan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.success) {
+            throw new Error(data.error || "系统学习预览生成失败");
+          }
+          return data.data;
+        });
+    }
+
+    function collectQuickTargetMinutes() {
+      const active = document.querySelector(".quick-option.active");
+      if (!active) return 30;
+
+      const value = parseInt(active.getAttribute("data-time") || "30", 10);
+      return Number.isNaN(value) ? 30 : value;
+    }
+
+    function renderQuickPlan(plan) {
+      if (!plan) {
+        return '<div class="plan-subcard"><p class="muted">暂未生成速通理解方案。</p></div>';
+      }
+
+      const summary = plan.plan_summary || {};
+      const detail = plan.plan_detail || {};
+
+      const highlights = (summary.highlights || [])
+        .map(item => `<span class="chip">${escapeHtml(item)}</span>`)
+        .join("");
+
+      const steps = (detail.steps || [])
+        .map((step, index) => {
+          return `
+            <div class="result-block">
+              <h3 class="chapter-title">Step ${index + 1}｜${escapeHtml(step.title)}（${escapeHtml(step.minutes)} 分钟）</h3>
+              <p class="chapter-summary">为什么先看：${escapeHtml(step.why || "")}</p>
+            </div>
+          `;
+        })
+        .join("");
+
+      const mustKnow = (detail.must_know || [])
+        .map(item => `<li>${escapeHtml(item)}</li>`)
+        .join("");
+
+      const nextAction = detail.next_action
+        ? `<div class="result-block"><h3 class="chapter-title">下一步建议</h3><p class="chapter-summary">${escapeHtml(detail.next_action)}</p></div>`
+        : "";
+
+      return `
+        <div class="card" style="padding: 0; border: none; background: transparent;">
+          <h2 class="section-title">${escapeHtml(summary.title || "最短理解路径")}</h2>
+          <p class="section-desc">${escapeHtml(summary.subtitle || "")}</p>
+
+          <div class="result-meta">${highlights}</div>
+
+          ${steps}
+
+          <div class="result-block">
+            <h3 class="chapter-title">必懂概念</h3>
+            <ul class="takeaway-list">${mustKnow}</ul>
+          </div>
+
+          ${nextAction}
+        </div>
+      `;
+    }
+
+    function previewQuickUnderstandingPlan() {
+      const payload = {
+        parsed_name: currentParsedName,
+        target_minutes: collectQuickTargetMinutes()
+      };
+
+      return fetch("/prototype/preview-quick-plan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.success) {
+            throw new Error(data.error || "速通理解预览生成失败");
+          }
+          return data.data;
+        });
+    }
+
+    function applyLearningPlan() {
+      if (!currentParsedName) return;
+
+      const mode = currentMode === "system" ? "system_learning" : "quick_understanding";
+
+      console.log("currentMode =", currentMode);
+      console.log("applyLearningPlan mode =", mode);
+
+      const payload = {
+        parsed_name: currentParsedName,
+        mode: mode
+      };
+
+      if (mode === "system_learning") {
+        payload.week_minutes = collectWeekMinutes();
+      }
+
+      console.log("apply payload =", payload);
+
+      fetch("/prototype/apply-plan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            window.location.href = "/document?parsed_name=" + encodeURIComponent(currentParsedName) + "&message=" + encodeURIComponent("已采用当前学习方案");
+          } else {
+            alert(data.error || "方案确认失败");
+          }
+        })
+        .catch((error) => {
+          console.error("方案确认失败：", error);
+          alert("方案确认失败，请稍后重试");
+        });
+    }
+
+    function hideAllSteps() {
+      step1.classList.remove("active");
+      step2.classList.remove("active");
+      step4System.classList.remove("active");
+      step4Quick.classList.remove("active");
+    }
+
+    function updateStepIndicator(stepNumber) {
+      stepIndicators.forEach((item) => {
+        const num = Number(item.getAttribute("data-step-indicator"));
+        item.classList.remove("active");
+        if (num === stepNumber) {
+          item.classList.add("active");
+        }
+      });
+    }
+
+    function showStep(stepName) {
+      hideAllSteps();
+
+      if (stepName === "step1") {
+        step1.classList.add("active");
+        updateStepIndicator(1);
+      }
+
+      if (stepName === "step2") {
+        step2.classList.add("active");
+        updateStepIndicator(2);
+      }
+
+      if (stepName === "systemResult") {
+        step4System.classList.add("active");
+        updateStepIndicator(3);
+      }
+
+      if (stepName === "quickResult") {
+        step4Quick.classList.add("active");
+        updateStepIndicator(3);
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+
+      modeSystem.classList.remove("active");
+      modeQuick.classList.remove("active");
+
+      if (mode === "system") {
+        modeSystem.classList.add("active");
+        systemSettingCard.style.display = "block";
+        quickSettingCard.style.display = "none";
+      } else {
+        modeQuick.classList.add("active");
+        systemSettingCard.style.display = "none";
+        quickSettingCard.style.display = "block";
+      }
+    }
+
+    function updateSummary() {
+      const selectedChapterCount = document.querySelectorAll(".chapter-select:checked").length;
+
+      let selectedMinutes = 0;
+      chapterCards.forEach((card) => {
+        const checkbox = card.querySelector(".chapter-select");
+        if (checkbox && checkbox.checked) {
+          selectedMinutes += Number(card.getAttribute("data-minutes") || 0);
+        }
+      });
+
+      let highPriorityCount = 0;
+      chapterCards.forEach((card) => {
+        const controlGrids = card.querySelectorAll(".control-grid");
+        if (controlGrids.length === 0) return;
+
+        const chapterControlGrid = controlGrids[0];
+        const priorityGroup = chapterControlGrid.querySelector(".priority-group");
+        if (!priorityGroup) return;
+
+        const activeBtn = priorityGroup.querySelector("button.active");
+        if (activeBtn && activeBtn.textContent.trim() === "高") {
+          highPriorityCount += 1;
+        }
+      });
+
+      document.getElementById("selectedCount").textContent = selectedChapterCount;
+      document.getElementById("selectedMinutes").textContent = `约 ${selectedMinutes} 分钟`;
+      document.getElementById("highPriorityCount").textContent = highPriorityCount;
+    }
+
+    segmentedGroups.forEach((group) => {
+      const buttons = group.querySelectorAll("button");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          buttons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          updateSummary();
+        });
+      });
+    });
+
+    chapterSelects.forEach((checkbox) => {
+      checkbox.addEventListener("change", updateSummary);
+    });
+
+    expandBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const topicList = btn.nextElementSibling;
+        topicList.classList.toggle("open");
+        btn.textContent = topicList.classList.contains("open") ? "收起主题" : "展开主题";
+      });
+    });
+
+    quickOptions.forEach((item) => {
+      item.addEventListener("click", () => {
+        quickOptions.forEach((q) => q.classList.remove("active"));
+        item.classList.add("active");
+      });
+    });
+
+    modeSystem.addEventListener("click", () => setMode("system"));
+    modeQuick.addEventListener("click", () => setMode("quick"));
+
+    goStep2.addEventListener("click", () => showStep("step2"));
+    backToStep1.addEventListener("click", () => showStep("step1"));
+
+    goStep4.addEventListener("click", () => {
+      const originalText = goStep4.textContent;
+      goStep4.disabled = true;
+      goStep4.textContent = "生成中...";
+
+      if (currentMode === "system") {
+        previewSystemLearningPlan()
+          .then((plan) => {
+            if (systemPlanContent) {
+              systemPlanContent.innerHTML = renderSystemPlan(plan);
+            }
+            showStep("systemResult");
+          })
+          .catch((error) => {
+            console.error("系统学习预览生成失败：", error);
+            alert("系统学习方案生成失败，请稍后重试");
+          })
+          .finally(() => {
+            goStep4.disabled = false;
+            goStep4.textContent = originalText;
+          });
+      } else {
+        previewQuickUnderstandingPlan()
+          .then((plan) => {
+            if (quickPlanContent) {
+              quickPlanContent.innerHTML = renderQuickPlan(plan);
+            }
+            showStep("quickResult");
+          })
+          .catch((error) => {
+            console.error("速通理解预览生成失败：", error);
+            alert("速通理解方案生成失败，请稍后重试");
+          })
+          .finally(() => {
+            goStep4.disabled = false;
+            goStep4.textContent = originalText;
+          });
+      }
+    });
+
+    backToStep2FromSystem.addEventListener("click", () => showStep("step2"));
+    backToStep1FromSystem.addEventListener("click", () => showStep("step1"));
+    backToStep2FromQuick.addEventListener("click", () => showStep("step2"));
+    backToStep1FromQuick.addEventListener("click", () => showStep("step1"));
+
+    if (applySystemPlanBtn) {
+      applySystemPlanBtn.addEventListener("click", () => applyLearningPlan());
+    }
+
+    if (applyQuickPlanBtn) {
+      applyQuickPlanBtn.addEventListener("click", () => applyLearningPlan());
+    }
+    updateSummary();
+    setMode("system");
+  </script>
+</body>
+</html>
+
