@@ -1,0 +1,318 @@
+{
+  "document": {
+    "document_id": "20260406_224716_俞军产品方法论",
+    "parsed_name": "20260406_224716_俞军产品方法论.txt",
+    "source_chunks": "data/outputs/20260406_224716_俞军产品方法论_chunks.json",
+    "purpose": "单文档 RAG 最小评估集；用于 remote embedding 可用后的检索质量人工验证。",
+    "quality_note": "当前 local-hash-embedding-v1 只用于工程链路验证，不用于判断最终检索质量。"
+  },
+  "evals": [
+    {
+      "eval_id": "q_001",
+      "question": "产品经理为什么要关注交易模型？",
+      "question_type": "concept_explanation",
+      "expected_support": [
+        {
+          "chunk_id": "c_029",
+          "page_range": "51-54",
+          "chapter_title": "第1章",
+          "source_scope": "第1章 / 1.3.4 交易模型——交易是最需要关注的"
+        }
+      ],
+      "expected_points": [
+        "交易模型研究以交易为基本单位研究产品",
+        "交易模型设计是产品经理的进阶能力",
+        "产品是企业与用户进行价值交换的媒介",
+        "需要兼顾用户价值、企业收益和可持续交易"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "核心概念解释题，用于验证是否能命中交易模型主小节。"
+    },
+    {
+      "eval_id": "q_002",
+      "question": "理性决策的三要素是什么？",
+      "question_type": "explicit_fact",
+      "expected_support": [
+        {
+          "chunk_id": "c_099",
+          "page_range": "159-160",
+          "chapter_title": "第4章",
+          "source_scope": "第4章 / 4.1.2 理性决策的三要素"
+        }
+      ],
+      "expected_points": [
+        "理性的信念",
+        "理性的目标",
+        "理性的行动",
+        "三者按重要性由高到低排列"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "明确事实类，答案应直接来自单个小节。"
+    },
+    {
+      "eval_id": "q_003",
+      "question": "供需定律在文档中位于哪个章节？",
+      "question_type": "chapter_location",
+      "expected_support": [
+        {
+          "chunk_id": "c_096",
+          "page_range": "152-154",
+          "chapter_title": "第3章",
+          "source_scope": "第3章 / 3.5 供需定律"
+        }
+      ],
+      "expected_points": [
+        "位于第3章",
+        "小节为3.5供需定律",
+        "内容讨论市场供需、价格变化、需求定律和供给定律"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "章节定位题，主要看检索是否返回正确 source_scope。"
+    },
+    {
+      "eval_id": "q_004",
+      "question": "互联网时代为什么降低了产品经理的入行门槛？",
+      "question_type": "comparison_relation",
+      "expected_support": [
+        {
+          "chunk_id": "c_016",
+          "page_range": "33-34",
+          "chapter_title": "第1章",
+          "source_scope": "第1章 / 1.2.1 互联网时代特性之一：信息复制分发的边际成本低和用户量巨"
+        },
+        {
+          "chunk_id": "c_017",
+          "page_range": "35-37",
+          "chapter_title": "第1章",
+          "source_scope": "第1章 / 1.2.2 互联网时代特性之二：快速迭代、数据和AB 测试"
+        }
+      ],
+      "expected_points": [
+        "在线信息产品复制分发边际成本低",
+        "产品可以快速迭代和即时分发",
+        "在线反馈和数据验证降低试错成本",
+        "传统产品更依赖经验丰富的人做预判"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "对比关系类，需同时覆盖传统产品迭代成本和互联网产品快速迭代。"
+    },
+    {
+      "eval_id": "q_005",
+      "question": "用户价值公式是什么？提升用户价值有哪几种方式？",
+      "question_type": "explicit_fact",
+      "expected_support": [
+        {
+          "chunk_id": "c_041",
+          "page_range": "71-73",
+          "chapter_title": "第2章",
+          "source_scope": "第2章 / 2.2.3 如何理解用户价值 / 第2章 / 2.3 如何理解产品 / 第2章 / 2.4 如何理解企业"
+        }
+      ],
+      "expected_points": [
+        "用户价值=新体验-旧体验-替换成本",
+        "让新体验最大化",
+        "让旧体验最小化",
+        "降低替换成本",
+        "三者需要综合权衡"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "公式型事实题，适合检验精确定位能力。"
+    },
+    {
+      "eval_id": "q_006",
+      "question": "文档说产品经理需要掌握哪四个经济学概念？",
+      "question_type": "explicit_fact",
+      "expected_support": [
+        {
+          "chunk_id": "c_070",
+          "page_range": "114-116",
+          "chapter_title": "第3章",
+          "source_scope": "第3章 / 3.2 效用 / 第3章 / 3.2.1 什么是效用"
+        }
+      ],
+      "expected_points": [
+        "效用",
+        "边际",
+        "成本",
+        "供需定律"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "明确事实类，期望命中第3章经济学概念概览。"
+    },
+    {
+      "eval_id": "q_007",
+      "question": "文档是否提到 AB 测试？如果提到，它和什么主题放在一起讨论？",
+      "question_type": "mentioned_check",
+      "expected_support": [
+        {
+          "chunk_id": "c_017",
+          "page_range": "35-37",
+          "chapter_title": "第1章",
+          "source_scope": "第1章 / 1.2.2 互联网时代特性之二：快速迭代、数据和AB 测试"
+        }
+      ],
+      "expected_points": [
+        "文档提到AB测试",
+        "与快速迭代、数据一起讨论",
+        "用于说明互联网时代产品验证和迭代方式"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "文档中是否提到类的正样本。"
+    },
+    {
+      "eval_id": "q_008",
+      "question": "产品经理的选拔这一节主要说了什么？",
+      "question_type": "chapter_location",
+      "expected_support": [
+        {
+          "chunk_id": "c_135",
+          "page_range": "215-216",
+          "chapter_title": "第5章",
+          "source_scope": "第5章 / 5.1 产品经理的选拔"
+        }
+      ],
+      "expected_points": [
+        "产品经理职能可分为需求、生产、销售、协调四大类",
+        "不同公司、行业和阶段对产品经理的分工定位不同",
+        "不存在适合所有公司的通用选拔标准",
+        "优秀产品经理通常指市场需求导向且擅长决策的人"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "章节定位加摘要题，要求检索到5.1开头。"
+    },
+    {
+      "eval_id": "q_009",
+      "question": "文档如何看待用户价值和商业价值的关系？",
+      "question_type": "comparison_relation",
+      "expected_support": [
+        {
+          "chunk_id": "c_222",
+          "page_range": "367-369",
+          "chapter_title": "第5章",
+          "source_scope": "第5章 / 5.2.6 产品经理找工作"
+        }
+      ],
+      "expected_points": [
+        "做产品需要对结果负责",
+        "只扩大用户量不考虑挣钱不是完整体系",
+        "只做商业产品也无法完整理解用户",
+        "产品理论上既考虑用户价值也考虑商业价值",
+        "短期价值和长期价值都需要兼顾"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "对比关系类，检验能否同时抓住用户价值与商业闭环。"
+    },
+    {
+      "eval_id": "q_010",
+      "question": "为什么大用户量产品对产品经理成长有价值？",
+      "question_type": "concept_explanation",
+      "expected_support": [
+        {
+          "chunk_id": "c_222",
+          "page_range": "367-369",
+          "chapter_title": "第5章",
+          "source_scope": "第5章 / 5.2.6 产品经理找工作"
+        }
+      ],
+      "expected_points": [
+        "大用户量产品能让细小调整产生明显反馈",
+        "验证产品思维更高效",
+        "用户少时变化信号弱且更易受运营活动干扰",
+        "产品经理可以更好理解用户行为和思想"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "概念解释题，关注职业成长和实践反馈。"
+    },
+    {
+      "eval_id": "q_011",
+      "question": "产品岗位价值的判断公式是什么？",
+      "question_type": "explicit_fact",
+      "expected_support": [
+        {
+          "chunk_id": "c_179",
+          "page_range": "286-288",
+          "chapter_title": "第5章",
+          "source_scope": "第5章 / 5.2.6 产品经理找工作"
+        }
+      ],
+      "expected_points": [
+        "产品岗位价值=有价值（事）*成功率（团队）*成功后回报大小",
+        "优先选有价值的事",
+        "成功率与团队人才质量和产品心有关",
+        "还要看成功后的回报大小"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "公式型事实题，期望命中找工作章节。"
+    },
+    {
+      "eval_id": "q_012",
+      "question": "中小企业如何培养产品经理？",
+      "question_type": "concept_explanation",
+      "expected_support": [
+        {
+          "chunk_id": "c_223",
+          "page_range": "368-371",
+          "chapter_title": "第5章",
+          "source_scope": "第5章 / 5.2.6 产品经理找工作"
+        }
+      ],
+      "expected_points": [
+        "大部分产品经理处于新手阶段",
+        "要靠快速迭代业务不断验证",
+        "培训课只能做基础训练和扩展视野",
+        "需要合格产品经理通过实践指导",
+        "没有简单方法能迅速变成合格产品负责人"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "职业成长类概念题，检验后部问答段落检索。"
+    },
+    {
+      "eval_id": "q_013",
+      "question": "读经济学的书很累时，文档建议怎么做？",
+      "question_type": "explicit_fact",
+      "expected_support": [
+        {
+          "chunk_id": "c_177",
+          "page_range": "283-284",
+          "chapter_title": "第5章",
+          "source_scope": "第5章 / 5.2.5 适合产品经理读的书"
+        }
+      ],
+      "expected_points": [
+        "看不懂书可以多看书评",
+        "多搜索书里的概念",
+        "从百科、知乎等平台看多视角解读",
+        "一本看不懂就多看几本同类书",
+        "记录精华摘要和自己的思考"
+      ],
+      "should_allow_insufficient": false,
+      "notes": "明确事实类，覆盖读书方法建议。"
+    },
+    {
+      "eval_id": "q_014",
+      "question": "这份文档是否给出了 Scrum Sprint 计划模板？",
+      "question_type": "insufficient_check",
+      "expected_support": [],
+      "expected_points": [
+        "应说明当前检索片段不足以确认或文档未明确提到",
+        "不应编造Scrum模板、站会、迭代计划字段",
+        "不应引入外部敏捷管理知识"
+      ],
+      "should_allow_insufficient": true,
+      "notes": "负样本，用于验证模型在文档无依据时能拒答或说明不足。"
+    },
+    {
+      "eval_id": "q_015",
+      "question": "这份文档是否说明了如何实现 RAG、向量数据库或 embedding 评估？",
+      "question_type": "insufficient_check",
+      "expected_support": [],
+      "expected_points": [
+        "应说明当前检索片段不足以确认或文档未明确提到",
+        "不应把当前工程实现知识写成原文内容",
+        "不应补充外部RAG技术方案"
+      ],
+      "should_allow_insufficient": true,
+      "notes": "负样本，用于区分产品方法论文档内容与当前工程项目上下文。"
+    }
+  ]
+}

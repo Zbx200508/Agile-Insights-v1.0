@@ -125,6 +125,58 @@ def answer_question(question: str, context_chunks: list[str]) -> str:
 
     return response.choices[0].message.content.strip()
 
+
+def generate_rag_answer(question: str, retrieved_chunks: list[dict]) -> str:
+    if not question or not question.strip():
+        return "问题为空，无法回答。"
+
+    if not retrieved_chunks:
+        return "当前没有检索到可用原文片段，无法基于当前文档回答。"
+
+    context_text = "\n\n".join(
+        [
+            (
+                f"[{chunk.get('chunk_id', f'chunk_{i + 1}')}]\n"
+                f"页码：{chunk.get('page_range') or 'unknown'}\n"
+                f"章节：{chunk.get('chapter_title') or ''}\n"
+                f"范围：{chunk.get('source_scope') or ''}\n"
+                f"原文片段：\n{chunk.get('chunk_text', '')}"
+            )
+            for i, chunk in enumerate(retrieved_chunks)
+        ]
+    )[:18000]
+
+    prompt = f"""
+请只基于给定的检索片段回答用户问题，不要补充外部知识。
+
+回答要求：
+1. 只能使用检索片段中明确支持的信息。
+2. 如果片段不足以确认答案，要直接说明“当前检索片段不足以确认”。
+3. 不要把推断、常识或外部背景写成原文事实。
+4. 尽量用简洁中文回答，先给直接答案，再用 2-4 条要点说明。
+5. 如果使用了某个片段的信息，可在句末用对应 chunk_id 标注，例如 [c_029]。
+
+用户问题：
+{question}
+
+检索片段：
+{context_text}
+""".strip()
+
+    response = client.chat.completions.create(
+        model=model_name,
+        messages=[
+            {
+                "role": "system",
+                "content": "你是严格基于检索片段回答问题的 RAG 问答助手。不得使用外部知识，不得编造引用。"
+            },
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.1,
+    )
+
+    return response.choices[0].message.content.strip()
+
 def generate_learning_map_raw(text: str, document_title: str = "") -> dict:
     """
     调用大模型生成“学习地图原始 JSON”。
